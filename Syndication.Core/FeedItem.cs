@@ -10,37 +10,37 @@ namespace Syndication.Core
         /// <summary>
         /// Gets or sets the unique identifier for the item (GUID, URI, etc.).
         /// </summary>
-        public string Id { get; set; }
+        public string Id { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the title of the item.
         /// </summary>
-        public string Title { get; set; }
+        public string Title { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the description or summary of the item.
         /// </summary>
-        public string Description { get; set; }
+        public string Description { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the content of the item (often HTML).
         /// </summary>
-        public string Content { get; set; }
+        public string Content { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the link to the item.
         /// </summary>
-        public string Link { get; set; }
+        public string Link { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the author of the item.
         /// </summary>
-        public string Author { get; set; }
+        public string Author { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets the categories or tags associated with the item.
         /// </summary>
-        public string[] Categories { get; set; }
+        public string[] Categories { get; set; } = Array.Empty<string>();
 
         /// <summary>
         /// Gets or sets the publication date of the item.

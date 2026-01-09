@@ -15,14 +15,14 @@ namespace Syndication.Core
 
         public override bool CanParse(string contentType, string contentSnippet)
         {
-             if (!string.IsNullOrEmpty(contentType) && contentType.Contains("atom")) return true;
-             if (!string.IsNullOrEmpty(contentSnippet) && contentSnippet.Contains("<feed") && contentSnippet.Contains("http://www.w3.org/2005/Atom")) return true;
-             return false;
+            if (!string.IsNullOrEmpty(contentType) && contentType.Contains("atom")) return true;
+            if (!string.IsNullOrEmpty(contentSnippet) && contentSnippet.Contains("<feed") && contentSnippet.Contains("http://www.w3.org/2005/Atom")) return true;
+            return false;
         }
 
         protected override Task<Feed> ParseXDocumentAsync(XDocument document, CancellationToken cancellationToken)
         {
-            if (document == null) throw new ArgumentNullException(nameof(document));
+            ArgumentNullException.ThrowIfNull(document);
 
             var root = document.Root;
             if (root == null || !root.Name.LocalName.Equals("feed", StringComparison.OrdinalIgnoreCase))
@@ -32,7 +32,7 @@ namespace Syndication.Core
             }
 
             var ns = root.GetDefaultNamespace();
-            
+
             var feed = new Feed
             {
                 Type = FeedType.Atom,
@@ -58,12 +58,12 @@ namespace Syndication.Core
                     Updated = ParseDate(GetValue(entry, ns, "updated")),
                     Author = GetAuthor(entry, ns),
                     Link = GetLink(entry, ns, "alternate") ?? GetLink(entry, ns, null),
-                    Categories = entry.Elements(ns + "category").Select(x => (string?)x.Attribute("term")).Where(x => x!= null).ToArray()!
+                    Categories = entry.Elements(ns + "category").Select(x => (string?)x.Attribute("term")).Where(x => x != null).ToArray()!
                 };
 
                 var content = GetValue(entry, ns, "content");
                 var summary = GetValue(entry, ns, "summary");
-                
+
                 item.Content = content ?? summary;
                 item.Description = summary ?? content;
 
